@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 import os
@@ -33,6 +33,50 @@ guides_schema = GuideSchema(many=True)
 @app.route('/')
 def hello():
     return "Hey Flask"
+
+
+# Endpoint to create a new guide
+@app.post('/guide')
+def add_guide():
+    title = request.json['title']
+    content = request.json['content']
+
+    new_guide = Guide(title, content)
+
+    db.session.add(new_guide)
+    db.session.commit()
+
+    guide = db.session.get(Guide, new_guide.id)
+
+    return guide_schema.jsonify(guide)
+
+
+@app.get('/guide')
+def get_guides():
+    all_guides = Guide.query.all()
+    result = guides_schema.dump(all_guides)
+    return jsonify(result)
+
+
+@app.get('/guide/<int:id>')
+def get_guide(id):
+    guide = db.session.get(Guide, id)
+    result = guide_schema.dump(guide)
+    return jsonify(result)
+
+
+# Endpoint for updating a guide
+@app.put("/guide/<int:id>")
+def guide_update(id):
+    guide = db.session.get(Guide, id)
+    title = request.json['title']
+    content = request.json['content']
+
+    guide.title = title
+    guide.content = content
+
+    db.session.commit()
+    return guide_schema.jsonify(guide)
 
 
 if __name__ == '__main__':
