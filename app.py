@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 import os
@@ -31,8 +31,8 @@ guides_schema = GuideSchema(many=True)
 
 
 @app.route('/')
-def hello():
-    return "Hey Flask"
+def index():
+    return render_template("index.html")
 
 
 # Endpoint to create a new guide
@@ -80,4 +80,4 @@ def guide_update(id):
 
 
 if __name__ == '__main__':
-    app.run(host="192.168.2.25", debug=True)
+    app.run(host="localhost", debug=True)
