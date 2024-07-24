@@ -1,7 +1,11 @@
-body {
-  background: linear-gradient(to bottom, #007bff, #00b894);
-}
-
-.ersin {
-    background-color: orange !important;
-}
+ .bg-container {
+            background-image: url('https://images.pexels.com/photos/2847648/pexels-photo-2847648.jpeg?auto=compress&cs=tinysrgb&w=600'); /* URL to your image */
+            background-size: cover; /* Cover the entire area */
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Do not repeat the image */
+            background-attachment: fixed; /* Fixed background */
+            background-blend-mode: multiply; /* Blending mode */
+            background-color: rgba(0, 0, 0, 0.5); /* Overlay color */
+            color: white;
+            text-shadow: 1px 1px 11px rgba(0, 0, 0, 0.5);
+        }
